@@ -1,17 +1,9 @@
-# email_service.py
 import resend
 from flask import Flask, request, jsonify
-from dotenv import load_dotenv
 import os
 
-# Загружаем переменные из .env файла
-load_dotenv()
-
-app = Flask(__name__)
-
-# Устанавливаем API ключ из .env
 resend.api_key = os.getenv("RESEND_API_KEY")
-port = os.getenv("PORT", 5001)
+app = Flask(__name__)
 
 def send_email(from_address, to_address, subject, html_content):
     """Отправляет email через Resend API."""
@@ -47,8 +39,3 @@ def send_email_route():
         return jsonify({"error": result}), 500
     
     return jsonify({"message": "Email sent successfully", "response": result}), 200
-
-if __name__ == '__main__':
-    from waitress import serve
-    print(f"Running server at 0.0.0.0:{port}");
-    serve(app, host="0.0.0.0", port=port)

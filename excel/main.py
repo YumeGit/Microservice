@@ -1,11 +1,8 @@
-import os
 import pandas as pd
 from flask import Flask, request, jsonify, send_file
-from dotenv import load_dotenv
 from io import BytesIO
 
 app = Flask(__name__)
-port = os.getenv("PORT", 5002)
 
 # Функция для создания Excel файла из полученных данных
 def create_excel(questions, answers, security_results):
@@ -53,9 +50,3 @@ def export_to_excel():
     # Возвращаем файл в ответе
     return send_file(excel_file, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
                      as_attachment=True, download_name='report.xlsx')
-
-# Запуск сервера
-if __name__ == '__main__':
-    from waitress import serve
-    print(f"Running server at 0.0.0.0:{port}");
-    serve(app, host="0.0.0.0", port=port)

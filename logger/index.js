@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Получаем настройки из .env
 const LOG_FOLDER = process.env.LOG_FOLDER || 'logs';
-const PORT = process.env.PORT || 5003;
+const PORT = process.env.PORT || 8080;
 
 // Создаем папку для логов, если ее нет
 if (!fs.existsSync(LOG_FOLDER)) {
